@@ -30,3 +30,12 @@ D:\Users\RATL2\HRHDWX\Signals - kiindulás\bin\Debug\Signals.exe
 D:\Users\RATL2\HRHDWX\Signals - kiindulás\bin\Debug\Signals.pdb
 C:\Users\Zoltán\Documents\Jegyzetek\2_MSc\MSC III\RATL2\6_Doc_View\HRHDWX_6meres_150209_192857\Signals - kiindulás\obj\Debug\Signals.exe
 C:\Users\Zoltán\Documents\Jegyzetek\2_MSc\MSC III\RATL2\6_Doc_View\HRHDWX_6meres_150209_192857\Signals - kiindulás\obj\Debug\Signals.pdb
+C:\Users\Zoltán\Documents\Jegyzetek\2_MSc\MSC III\RATL2\6_Doc_View\HRHDWX_6meres_150209_192857\Signals - kiindulás\bin\Debug\Signals.exe
+C:\Users\Zoltán\Documents\Jegyzetek\2_MSc\MSC III\RATL2\6_Doc_View\HRHDWX_6meres_150209_192857\Signals - kiindulás\bin\Debug\Signals.pdb
+C:\Users\Zoltán\Documents\Jegyzetek\2_MSc\MSC III\RATL2\6_Doc_View\HRHDWX_6meres_150209_192857\Signals - kiindulás\obj\Debug\Signals.csprojResolveAssemblyReference.cache
+C:\Users\Zoltán\Documents\Jegyzetek\2_MSc\MSC III\RATL2\6_Doc_View\HRHDWX_6meres_150209_192857\Signals - kiindulás\obj\Debug\Signals.DemoView.resources
+C:\Users\Zoltán\Documents\Jegyzetek\2_MSc\MSC III\RATL2\6_Doc_View\HRHDWX_6meres_150209_192857\Signals - kiindulás\obj\Debug\Signals.GraphicsSignalView.resources
+C:\Users\Zoltán\Documents\Jegyzetek\2_MSc\MSC III\RATL2\6_Doc_View\HRHDWX_6meres_150209_192857\Signals - kiindulás\obj\Debug\Signals.MainForm.resources
+C:\Users\Zoltán\Documents\Jegyzetek\2_MSc\MSC III\RATL2\6_Doc_View\HRHDWX_6meres_150209_192857\Signals - kiindulás\obj\Debug\Signals.NewDocForm.resources
+C:\Users\Zoltán\Documents\Jegyzetek\2_MSc\MSC III\RATL2\6_Doc_View\HRHDWX_6meres_150209_192857\Signals - kiindulás\obj\Debug\Signals.Properties.Resources.resources
+C:\Users\Zoltán\Documents\Jegyzetek\2_MSc\MSC III\RATL2\6_Doc_View\HRHDWX_6meres_150209_192857\Signals - kiindulás\obj\Debug\Signals.csproj.GenerateResource.Cache

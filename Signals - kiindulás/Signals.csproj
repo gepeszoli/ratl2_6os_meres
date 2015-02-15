@@ -101,6 +101,9 @@
     <EmbeddedResource Include="DemoView.resx">
       <DependentUpon>DemoView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GraphicsSignalView.resx">
+      <DependentUpon>GraphicsSignalView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

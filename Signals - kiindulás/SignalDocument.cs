@@ -9,13 +9,14 @@ namespace Signals
     class SignalDocument : Document
     {
         public List<SignalValue> SignalValues;
-        private string myPath;
+
         public SignalDocument(string name) : base(name)
         {
             SignalValues = new List<SignalValue>();
-                for (double i = 1.3; i < 11.0; i += 1.0)
+                for (double i = 1.3; i < 110.0; i += 1.0)
                 {
-                    SignalValues.Add(new SignalValue(i));
+                    long ticks = DateTime.Now.Ticks + Convert.ToInt64(i) * 100000 ;
+                    SignalValues.Add(new SignalValue(i, new DateTime(ticks)) );
                 }
         }
         public override void SaveDocument(string filePath)
@@ -52,9 +53,15 @@ namespace Signals
         }
         public void TraceValues()
         {
-            foreach(SignalValue value in SignalValues)
+            foreach(SignalValue v in SignalValues)
             {
-                Trace.WriteLine(value.ToString()+DateTime.Now.ToString());
+                string str ;
+                str = v.Value.ToString();
+                str += " Timestamp: ";
+                str += v.TimeStamp.ToString();
+                str += " Ticks: ";
+                str += v.TimeStamp.Ticks.ToString();
+                Trace.WriteLine(str);
             }
         }
     }
