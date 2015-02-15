@@ -34,7 +34,7 @@ namespace Signals
         public override void LoadDocument(string filePath)
         {
             base.LoadDocument(filePath);
-            
+            SignalValues.Clear();
             using( StreamReader sr = new StreamReader( filePath ) )
             {
                 while (sr.Peek() >= 0)
@@ -48,6 +48,7 @@ namespace Signals
                     SignalValues.Add(new SignalValue(d, dt));
                 }
             }
+            Trace.WriteLine("********* Loaded **************\r\n");
             TraceValues();
             this.UpdateAllViews();
         }

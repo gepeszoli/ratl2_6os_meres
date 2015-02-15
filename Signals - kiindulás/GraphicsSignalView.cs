@@ -16,14 +16,22 @@ namespace Signals
         /// TODO: a típusa legyen a Document leszármazottunk.
         /// </summary>
         private Document document;
+        public double yrange, yres, xrange, xres;
+        public bool reCalculate;
+        public int xoffset = 10;
+        public double boxsize = 3.0;
         public GraphicsSignalView()
         {
             InitializeComponent();
+            reCalculate = true;
+            this.Invalidate();
         }
         public GraphicsSignalView(Document document)
         {
             InitializeComponent();
             this.document = document;
+            reCalculate = true;
+            this.Invalidate();
         }
         /// <summary>
         /// A View interfész Update műveletének implementációja.
@@ -55,6 +63,7 @@ namespace Signals
             {}
             DateTime start, stop;
             double max, min, interval = 0;
+            doc.SignalValues.Sort(); // sorts by time
             start = doc.SignalValues.ElementAt(0).TimeStamp;
             stop = doc.SignalValues.ElementAt(0).TimeStamp;
             max = min = doc.SignalValues.ElementAt(0).Value;
@@ -73,25 +82,53 @@ namespace Signals
             }
             TimeSpan duration = stop - start;
             //duration.
-            double yrange = 40;// max - min;
-            double xres = 1.0;
-            double yres = 1.0;
+            if (reCalculate)
+            {
+                yrange = Math.Abs(max - min);
+                xrange = Convert.ToDouble(duration.Ticks);
+                Trace.WriteLine("xrange is : {0}", xrange.ToString());
+                Trace.WriteLine("yrange is : {0}", yrange.ToString());
+                xres = Convert.ToDouble(usableGraphicWidth) / xrange;
+                yres = Convert.ToDouble(centerH) / yrange;
+                Trace.WriteLine("xres is : {0}", xres.ToString());
+                Trace.WriteLine("yres is : {0}", yres.ToString());
+                if (yres == 0) throw new ArgumentOutOfRangeException(" Divison by 0");
+            }
             using (Pen pen = new Pen(Color.FromArgb(150, Color.Blue)))
             {
-                e.Graphics.DrawLine(pen, new Point(0, centerH), new Point(usableGraphicWidth, centerH)); // x axis
-                e.Graphics.DrawLine(pen, new Point(0, buttonHeight), new Point(0, usableGraphicHeight)); // y axis
+                e.Graphics.DrawLine(pen, new Point(xoffset, centerH), new Point(usableGraphicWidth, centerH)); // x axis
+                e.Graphics.DrawLine(pen, new Point(xoffset, buttonHeight), new Point(xoffset, usableGraphicHeight)); // y axis
             }
-            using (SolidBrush brush = new SolidBrush(Color.Green))
+            using (SolidBrush brush = new SolidBrush(Color.Green) )
             {
+                label2.Text = "Data is scaled normally";
+                label2.ForeColor = Color.Green;
+                Point previousPoint = new Point(xoffset, centerH);
                 foreach (SignalValue sv in doc.SignalValues)
                 {
                     TimeSpan ts = sv.TimeStamp - start;
-                    long xpos = Convert.ToInt32( xres* ts.Milliseconds );
-                    long ypos = Convert.ToInt32( yres * sv.Value);
-//                    Trace.WriteLine("Value {0} {1}", ypos);
-                    e.Graphics.FillRectangle(brush, xpos, ypos, 3, 3); 
+                    long xpos = Convert.ToInt64(Convert.ToDouble(ts.Ticks) * xres) + xoffset ;
+                    long ypos = Convert.ToInt64(centerH - sv.Value * yres) ;
+                    if (ypos < buttonHeight)
+                    {
+                        ypos = buttonHeight;
+                        label2.Text = "Warning: the displayed y values have been truncated";
+                        label2.ForeColor = Color.Red;
+                    }
+                    e.Graphics.FillRectangle(brush, xpos - Convert.ToInt64(boxsize / 2), ypos - Convert.ToInt64(boxsize / 2), Convert.ToInt32(boxsize), Convert.ToInt32(boxsize));
+                    using( Pen pen = new Pen(Color.FromArgb(150, Color.Red) ) )
+                    {
+                        e.Graphics.DrawLine(pen, previousPoint.X, previousPoint.Y, xpos, ypos);
+                    }
+                    previousPoint.X = (int)xpos;
+                    previousPoint.Y = (int)ypos;
                 }
+                toolStripStatusLabel1.Text = "xrange: " + xrange.ToString() + " ticks";
+                toolStripStatusLabel1.Text += " yrange: " + yrange.ToString() + " val.";
+                toolStripStatusLabel1.Text += " xres: " + xres.ToString() + " pixel/tick";
+                toolStripStatusLabel1.Text += " yres: " + yres.ToString() + " pixel/val.";
             }
+            
         }
 
         /// <summary>
@@ -101,7 +138,11 @@ namespace Signals
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-
+            reCalculate = false;
+            yres *= 1.1;
+            xres *= 1.1;
+            boxsize *= 1.1;
+            this.Invalidate();
         }
         /// <summary>
         /// This is the event handler of the zoom - button 
@@ -109,6 +150,25 @@ namespace Signals
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
+        {
+            reCalculate = false;
+            yres *= 0.9;
+            xres *= 0.9;
+            boxsize *= 0.9;
+            this.Invalidate();
+        }
+        /// <summary>
+        /// This is the event handler of the zoom reset button 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button3_Click(object sender, EventArgs e)
+        {
+            reCalculate = true;
+            this.Invalidate();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
