@@ -9,7 +9,6 @@ namespace Signals
     {
         public double Value;
         public DateTime TimeStamp;
-        public long Ticks;
         public SignalValue (double value)
         {
             Value = value;
@@ -20,7 +19,6 @@ namespace Signals
             Value = value;
             timeStamp = timeStamp.ToUniversalTime();
             TimeStamp = timeStamp;
-            Ticks = TimeStamp.Ticks;
         }
         public override string ToString()
         {
